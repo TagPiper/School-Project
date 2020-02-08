@@ -1,6 +1,6 @@
 #!/bin/bash
 read -p "Enter username : " username
-egrep "^$username" /etc/passwd >/dev/null
+egrep "^$username" /passwd >/dev/null
         if [ $? -eq 0 ]; then
                 passwd $username
                 echo "Password Updated."
