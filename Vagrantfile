@@ -1,15 +1,11 @@
-Vagrant.configure("2") do |config|
-	config.vm.provision "shell", inline: <<-SHELL
-		sudo apt-get update
-		sudo apt-get install -y apache2
-		SHELL
-	config.vm.define "apacheServer" do |apacheServer|
-	apacheServer.vm.box="ubuntu/trusty64"
-	apacheServer.vm.network :forwarded_port, guest: 22, host: 10122, id: "ssh"
-	apacheServer.vm.network :private_network, ip: "192.168.1.199"
-	apacheServer.vm.provider :virtualbox do |v|
-		v.name = "apacheServer"
-	v.customize ["modifyvm", :id, "--memory", 2048]
-	end
-	end
-end
+#!/bin/bash
+read -p "Enter username : " username
+egrep "^$username" /etc/passwd >/dev/null
+        if [ $? -eq 0 ]; then
+                passwd $username
+                echo "Password Updated."
+                exit 1
+        else
+                echo "User does not exist."
+                exit 1
+fi
